@@ -1,9 +1,9 @@
-
+#!/bin/bash
 SRC=$@
 
 [ "$SRC" = "" ] && { SRC=`q files`; }
 
-FILE=/tmp/1.c
+FILE=/tmp/code_quality_$$.c
 
 echo "                                      errors   lines of code   errors/KLOC"
 
