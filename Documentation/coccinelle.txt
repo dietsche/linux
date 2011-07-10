@@ -56,7 +56,7 @@ There are two ways to use Coccinelle with the Linux kernel.
 
 There are a number of optional parameters that can be used with the build target.
 
-	make coccicheck MODE={patch,report,context,org} COCCI=? M=?
+	make coccicheck MODE={patch,report,context,org} COCCI=? M=? PARALLEL=?
 
 MODE:
 	Determines what mode cocci operates in. If no mode is specified
@@ -70,6 +70,10 @@ COCCI:
 M:
 	Limit cocci to a subset of directories. This is very similar to the
 	way the build system works when building modules.
+
+PARALLEL:
+	Number of *.cocci SmPL scripts found under scripts/coccinelle/ to run
+	at the same time.
 
 
  Using Coccinelle on the Linux kernel
