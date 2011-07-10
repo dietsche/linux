@@ -41,6 +41,37 @@ The semantic patches in the kernel will work best with Coccinelle version
 semantic patch code, but any results that are obtained should still be
 correct.
 
+
+ Overview / Quick Start
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+There are two ways to use Coccinelle with the Linux kernel.
+
+1) Coccinelle can be used like sparse (see Documentation/sparse.txt):
+	make C=1 CHECK="scripts/coccicheck"
+	make C=2 CHECK="scripts/coccicheck"
+
+2) Coccinelle can be used via a build target in the kernel's Makefile:
+	make coccicheck
+
+There are a number of optional parameters that can be used with the build target.
+
+	make coccicheck MODE={patch,report,context,org} COCCI=? M=?
+
+MODE:
+	Determines what mode cocci operates in. If no mode is specified
+	then cocci will default to 'chain' mode which will run for each
+	available mode (patch, report, context, org).
+
+COCCI:
+	Process a specific .cocci SmPL script. If this is not set then
+	process all scripts under scripts/coccinelle/
+
+M:
+	Limit cocci to a subset of directories. This is very similar to the
+	way the build system works when building modules.
+
+
  Using Coccinelle on the Linux kernel
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
