@@ -97,10 +97,35 @@ coccinelle () {
 
 }
 
+parallel_cleanup () {
+	pkill -s 0 > /dev/null
+	rm /tmp/cocci_parallel_$$_* 2>/dev/null
+	exit
+}
+
+trap parallel_cleanup SIGINT
+PARALLEL_ID=0
+
 if [ "$COCCI" = "" ] ; then
     for f in `find $srctree/scripts/coccinelle/ -name '*.cocci' -type f | sort`; do
-	coccinelle $f
+	if [ "$PARALLEL" -eq "$PARALLEL" 2>/dev/null ] ; then
+		if [ "$ONLINE" = "0" ] ; then
+			echo Processing: `basename $f`
+		fi
+		coccinelle $f>/tmp/cocci_parallel_$$_$PARALLEL_ID 2>&1 &
+		PARALLEL_ID=$(($PARALLEL_ID + 1))
+		while [ "`jobs -p | wc -l`" -ge "$PARALLEL" ] ; do
+			sleep 3
+		done
+	else
+		coccinelle $f
+	fi
     done
+    wait
+    if [ "$PARALLEL_ID" -ge "0" ] ; then
+	cat /tmp/cocci_parallel_$$_*
+	parallel_cleanup
+    fi
 else
     coccinelle $COCCI
 fi
