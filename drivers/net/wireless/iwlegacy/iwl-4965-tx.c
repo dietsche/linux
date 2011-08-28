@@ -877,7 +877,7 @@ int iwl4965_tx_agg_start(struct iwl_priv *priv, struct ieee80211_vif *vif,
 	if (unlikely(tx_fifo < 0))
 		return tx_fifo;
 
-	IWL_WARN(priv, "%s on ra = %pM tid = %d\n",
+	IWL_DEBUG_HT(priv, "%s on ra = %pM tid = %d\n",
 			__func__, sta->addr, tid);
 
 	sta_id = iwl_legacy_sta_id(sta);
