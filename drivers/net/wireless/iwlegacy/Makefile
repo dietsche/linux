@@ -1,8 +1,6 @@
-obj-$(CONFIG_IWLEGACY)	+= iwl-legacy.o
-iwl-legacy-objs 		:= common.o iwl-eeprom.o iwl-hcmd.o iwl-power.o
-iwl-legacy-objs 		+= iwl-rx.o iwl-tx.o iwl-sta.o
-iwl-legacy-objs 		+= iwl-scan.o iwl-led.o
-iwl-legacy-$(CONFIG_IWLEGACY_DEBUGFS) += iwl-debugfs.o
+obj-$(CONFIG_IWLEGACY)	+= iwlegacy.o
+iwlegacy-objs		:= common.o
+iwlegacy-$(CONFIG_IWLEGACY_DEBUGFS) += iwl-debugfs.o
 
 iwl-legacy-objs += $(iwl-legacy-m)
 
