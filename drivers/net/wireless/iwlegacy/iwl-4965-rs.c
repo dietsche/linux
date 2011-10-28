@@ -1728,9 +1728,8 @@ iwl4965_rs_stay_in_table(struct iwl_lq_sta *lq_sta, bool force_search)
 
 /*
  * setup rate table in uCode
- * return rate_n_flags as used in the table
  */
-static u32 iwl4965_rs_update_rate_tbl(struct iwl_priv *priv,
+static void iwl4965_rs_update_rate_tbl(struct iwl_priv *priv,
 			      struct iwl_rxon_context *ctx,
 				struct iwl_lq_sta *lq_sta,
 				struct iwl_scale_tbl_info *tbl,
@@ -1742,8 +1741,6 @@ static u32 iwl4965_rs_update_rate_tbl(struct iwl_priv *priv,
 	rate = iwl4965_rate_n_flags_from_tbl(priv, tbl, index, is_green);
 	iwl4965_rs_fill_link_cmd(priv, lq_sta, rate);
 	iwl_legacy_send_lq_cmd(priv, ctx, &lq_sta->lq, CMD_ASYNC, false);
-
-	return rate;
 }
 
 /*
@@ -1772,7 +1769,6 @@ static void iwl4965_rs_rate_scale_perform(struct iwl_priv *priv,
 	u8 update_lq = 0;
 	struct iwl_scale_tbl_info *tbl, *tbl1;
 	u16 rate_scale_index_msk = 0;
-	u32 rate;
 	u8 is_green = 0;
 	u8 active_tbl = 0;
 	u8 done_search = 0;
@@ -1859,7 +1855,7 @@ static void iwl4965_rs_rate_scale_perform(struct iwl_priv *priv,
 			tbl = &(lq_sta->lq_info[lq_sta->active_tbl]);
 			/* get "active" rate info */
 			index = iwl4965_hwrate_to_plcp_idx(tbl->current_rate);
-			rate = iwl4965_rs_update_rate_tbl(priv, ctx, lq_sta,
+			iwl4965_rs_update_rate_tbl(priv, ctx, lq_sta,
 						  tbl, index, is_green);
 		}
 		return;
@@ -2077,7 +2073,7 @@ static void iwl4965_rs_rate_scale_perform(struct iwl_priv *priv,
 lq_update:
 	/* Replace uCode's rate table for the destination station. */
 	if (update_lq)
-		rate = iwl4965_rs_update_rate_tbl(priv, ctx, lq_sta,
+		iwl4965_rs_update_rate_tbl(priv, ctx, lq_sta,
 					  tbl, index, is_green);
 
 	/* Should we stay with this modulation mode,
