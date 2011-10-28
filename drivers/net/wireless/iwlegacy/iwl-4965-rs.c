@@ -989,7 +989,7 @@ iwl4965_rs_tx_status(void *priv_r, struct ieee80211_supported_band *sband,
 	lq_sta->last_rate_n_flags = tx_rate;
 done:
 	/* See if there's a better rate or modulation mode to try. */
-	if (sta && sta->supp_rates[sband->band])
+	if (sta->supp_rates[sband->band])
 		iwl4965_rs_rate_scale_perform(priv, skb, sta, lq_sta);
 }
 
