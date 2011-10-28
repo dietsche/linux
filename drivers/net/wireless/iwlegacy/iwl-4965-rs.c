@@ -2313,7 +2313,6 @@ iwl4965_rs_get_rate(void *priv_r, struct ieee80211_sta *sta, void *priv_sta,
 static void *iwl4965_rs_alloc_sta(void *priv_rate, struct ieee80211_sta *sta,
 			  gfp_t gfp)
 {
-	struct iwl_lq_sta *lq_sta;
 	struct iwl_station_priv *sta_priv =
 				(struct iwl_station_priv *) sta->drv_priv;
 	struct iwl_priv *priv;
@@ -2321,9 +2320,7 @@ static void *iwl4965_rs_alloc_sta(void *priv_rate, struct ieee80211_sta *sta,
 	priv = (struct iwl_priv *)priv_rate;
 	IWL_DEBUG_RATE(priv, "create station rate scale window\n");
 
-	lq_sta = &sta_priv->lq_sta;
-
-	return lq_sta;
+	return &sta_priv->lq_sta;
 }
 
 /*
