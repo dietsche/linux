@@ -2663,11 +2663,13 @@ static struct iwl_lib_ops iwl3945_lib = {
 	.send_tx_power	= iwl3945_send_tx_power,
 	.is_valid_rtc_data_addr = iwl3945_hw_valid_rtc_data_addr,
 
+#ifdef CONFIG_IWLEGACY_DEBUGFS
 	.debugfs_ops = {
 		.rx_stats_read = iwl3945_ucode_rx_stats_read,
 		.tx_stats_read = iwl3945_ucode_tx_stats_read,
 		.general_stats_read = iwl3945_ucode_general_stats_read,
 	},
+#endif
 };
 
 static const struct iwl_legacy_ops iwl3945_legacy_ops = {

@@ -2097,11 +2097,13 @@ static struct iwl_lib_ops iwl4965_lib = {
 	.temp_ops = {
 		.temperature = iwl4965_temperature_calib,
 	},
+#ifdef CONFIG_IWLEGACY_DEBUGFS
 	.debugfs_ops = {
 		.rx_stats_read = iwl4965_ucode_rx_stats_read,
 		.tx_stats_read = iwl4965_ucode_tx_stats_read,
 		.general_stats_read = iwl4965_ucode_general_stats_read,
 	},
+#endif
 };
 
 static const struct iwl_legacy_ops iwl4965_legacy_ops = {
