@@ -798,8 +798,7 @@ int iwl4965_request_scan(struct iwl_priv *priv, struct ieee80211_vif *vif)
 
 	lockdep_assert_held(&priv->mutex);
 
-	if (vif)
-		ctx = iwl_legacy_rxon_ctx_from_vif(vif);
+	ctx = iwl_legacy_rxon_ctx_from_vif(vif);
 
 	if (!priv->scan_cmd) {
 		priv->scan_cmd = kmalloc(sizeof(struct iwl_scan_cmd) +
