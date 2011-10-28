@@ -2768,13 +2768,9 @@ static ssize_t iwl4965_rs_sta_dbgfs_rate_scale_data_read(struct file *file,
 {
 	char buff[120];
 	int desc = 0;
-	ssize_t ret;
 
 	struct iwl_lq_sta *lq_sta = file->private_data;
-	struct iwl_priv *priv;
 	struct iwl_scale_tbl_info *tbl = &lq_sta->lq_info[lq_sta->active_tbl];
-
-	priv = lq_sta->drv;
 
 	if (is_Ht(tbl->lq_type))
 		desc += sprintf(buff+desc,
@@ -2785,8 +2781,7 @@ static ssize_t iwl4965_rs_sta_dbgfs_rate_scale_data_read(struct file *file,
 				"Bit Rate= %d Mb/s\n",
 				iwlegacy_rates[lq_sta->last_txrate_idx].ieee >> 1);
 
-	ret = simple_read_from_buffer(user_buf, count, ppos, buff, desc);
-	return ret;
+	return simple_read_from_buffer(user_buf, count, ppos, buff, desc);
 }
 
 static const struct file_operations rs_sta_dbgfs_rate_scale_data_ops = {
